@@ -1,0 +1,626 @@
+# Import Packages
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Subsetting the WDIW Data set into the Hot Rod.xlsx
+file = 'WDIW Dataset.xlsx'
+world_data = pd.read_excel(file)
+hot_rod = (world_data[world_data['Cool Name'] == 'Hot Rod'])
+hot_rod.to_excel('Hot Rod.xlsx')
+
+# showcase all of the columns in the hot_rod analysis
+pd.set_option('display.max_columns', 500)
+
+# renaming the column names - Dem
+hot_rod = hot_rod.rename(columns={"Country Code": "country_code"})
+hot_rod = hot_rod.rename(columns={"Country Name": "country_name"})
+hot_rod = hot_rod.rename(columns={"Hult Region": "hult_region"})
+hot_rod = hot_rod.rename(columns={"Cool Name": "cool_name"})
+hot_rod = hot_rod.rename(columns={"Adolescent fertility rate (births per 1,000 women ages 15-19)": "ad_fertility_rate"})
+hot_rod = hot_rod.rename(columns={"Birth rate, crude (per 1,000 people)": "birth_rate"})
+hot_rod = hot_rod.rename(columns={"Death rate, crude (per 1,000 people)": "death_rate"})
+hot_rod = hot_rod.rename(columns={"Fertility rate, total (births per woman)": "fertility_rate"})
+hot_rod = hot_rod.rename(columns={"Life expectancy at birth, total (years)": "life_exp"})
+hot_rod = hot_rod.rename(columns={"Population ages 0-14 (% of total population)": "pop_0_to_14"})
+hot_rod = hot_rod.rename(columns={"Population ages 15-64 (% of total population)": "pop_15_to_64"})
+hot_rod = hot_rod.rename(columns={"Population ages 65 and above (% of total population)": "pop_65_over"})
+hot_rod = hot_rod.rename(columns={"Population density (people per sq. km of land area)": "pop_density"})
+hot_rod = hot_rod.rename(columns={"Population growth (annual %)": "pop_growth"})
+hot_rod = hot_rod.rename(columns={"Population in the largest city (% of urban population)": "pop_largest_city"})
+hot_rod = hot_rod.rename(columns={"Population living in slums (% of urban population)": "pop_slums"})
+hot_rod = hot_rod.rename(columns={"Population, female": "pop_female"})
+hot_rod = hot_rod.rename(columns={"Population, male": "pop_male"})
+hot_rod = hot_rod.rename(columns={"Population, total": "pop_total"})
+hot_rod = hot_rod.rename(columns={"Rural population (% of total population)": "pop_rural"})
+hot_rod = hot_rod.rename(columns={"Surface area (sq. km)": "surface_area"})
+hot_rod = hot_rod.rename(columns={"Urban population (% of total population)": "pop_urban"})
+hot_rod = hot_rod.rename(columns={"Urban population growth (annual %)": "pop_urban_growth"})
+
+# renaming the column names - fin
+hot_rod = hot_rod.rename(columns={"Agriculture, forestry, and fishing, value added (% of GDP)": "agr_for_fish_valadd"})
+hot_rod = hot_rod.rename(columns={"GDP (current US$)": "gdp"})
+hot_rod = hot_rod.rename(columns={"GDP growth (annual %)": "gdp_growth"})
+hot_rod = hot_rod.rename(columns={"GINI index (World Bank estimate)": "gini_index"})
+hot_rod = hot_rod.rename(columns={"Government expenditure on education, total (% of government expenditure)": "gov_exp_edu"})
+hot_rod = hot_rod.rename(columns={"Income share held by fourth 20%": "income_4th"})
+hot_rod = hot_rod.rename(columns={"Income share held by highest 20%": "income_1st"})
+hot_rod = hot_rod.rename(columns={"Income share held by lowest 20%": "income_5th"})
+hot_rod = hot_rod.rename(columns={"Income share held by second 20%": "income_2nd"})
+hot_rod = hot_rod.rename(columns={"Income share held by third 20%": "income_3rd"})
+hot_rod = hot_rod.rename(columns={"Industry (including construction), value added (% of GDP)": "industry_const_valadd"})
+hot_rod = hot_rod.rename(columns={"Merchandise trade (% of GDP)": "merch_trade"})
+hot_rod = hot_rod.rename(columns={"Military expenditure (% of GDP)": "mili_exp"})
+hot_rod = hot_rod.rename(columns={"Services, value added (% of GDP)": "serv_valadd"})
+hot_rod = hot_rod.rename(columns={"Tax revenue (% of GDP)": "tax_rev"})
+
+# renaming the column names - emp
+hot_rod = hot_rod.rename(columns ={"Agriculture, forestry, and fishing, value added (% of GDP)": "agr_for_fish_valadd"})
+hot_rod = hot_rod.rename(columns ={"Armed forces personnel (% of total labor force)": "armed_forces"})
+hot_rod = hot_rod.rename(columns ={"Employment in agriculture (% of total employment) (modeled ILO estimate)": "emp_agr"})
+hot_rod = hot_rod.rename(columns ={"Employment in industry (% of total employment) (modeled ILO estimate)": "emp_ind"})
+hot_rod = hot_rod.rename(columns ={"Employment in services (% of total employment) (modeled ILO estimate)": "emp_serv"})
+
+# renaming the column names - living
+hot_rod = hot_rod.rename(columns = {'Access to electricity (% of population)' : 'elec_access_pop'})
+hot_rod = hot_rod.rename(columns = {'Access to electricity, rural (% of rural population)' : 'elec_access_rural'})
+hot_rod = hot_rod.rename(columns = {'Access to electricity, urban (% of urban population)' : 'elec_access_urban'})
+hot_rod = hot_rod.rename(columns = {'Mobile cellular subscriptions (per 100 people)' : 'cellular_subscript_per100'})
+hot_rod = hot_rod.rename(columns = {'Number of people pushed below the $3.10 ($ 2011 PPP) poverty line by out-of-pocket health care expenditure' : 'ppl_pushed_below_3.10'})
+hot_rod = hot_rod.rename(columns = {'Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)' : 'poverty_ratio_at_1.90'})
+hot_rod = hot_rod.rename(columns = {'Poverty headcount ratio at $3.20 a day (2011 PPP) (% of population)' : 'poverty_ratio_at_3.20'})
+hot_rod = hot_rod.rename(columns = {'Poverty headcount ratio at national poverty lines (% of population)' : 'poverty_ratio_at_national_lines'})
+hot_rod = hot_rod.rename(columns = {'Prevalence of HIV, total (% of population ages 15-49)' : 'hiv_prevalence_1549'})
+hot_rod = hot_rod.rename(columns = {'Prevalence of undernourishment (% of population)' : 'undernourishment_prevalence_pop'})
+hot_rod = hot_rod.rename(columns = {'Prevalence of underweight, weight for age (% of children under 5)' : 'underweight_prevalence_under5_pop'})
+hot_rod = hot_rod.rename(columns = {'Population growth (annual %)' : 'pop_growth'})
+
+# subsetting into the demographics sector
+hot_rod_dem = hot_rod[["country_code","country_name","ad_fertility_rate","birth_rate",
+                      "death_rate","fertility_rate","life_exp","pop_0_to_14","pop_15_to_64","pop_65_over","pop_density",
+                      "pop_growth","pop_largest_city","pop_slums","pop_female","pop_male","pop_total","pop_rural","surface_area",
+                      "pop_urban","pop_urban_growth"]]
+
+# subsetting into the financial sector
+hot_rod_fin = hot_rod[["country_name","agr_for_fish_valadd","gdp","gdp_growth","gini_index","gov_exp_edu",
+                       "income_4th","income_1st","income_5th","income_2nd","income_3rd","industry_const_valadd",
+                       "merch_trade","mili_exp","serv_valadd","tax_rev"]]
+
+# subsetting into the employment sector
+hot_rod_emp = hot_rod[["country_name","agr_for_fish_valadd","armed_forces","emp_agr","emp_ind","emp_serv"]]
+
+
+#used .melt() and .pivot() to subset living standards
+hot_melt = pd.melt(frame= hot_rod, id_vars = ['country_code', 'country_name', 'hult_region', 'cool_name'],
+                  value_vars = ['elec_access_pop', 'elec_access_rural', 
+                               'elec_access_urban', 'cellular_subscript_per100', 
+                                'ppl_pushed_below_3.10', 
+                                'poverty_ratio_at_1.90', 'poverty_ratio_at_3.20', 
+                                'poverty_ratio_at_national_lines', 'hiv_prevalence_1549', 
+                                'undernourishment_prevalence_pop', 'underweight_prevalence_under5_pop', 
+                                'pop_growth'])
+
+hot_rod_living = hot_melt.pivot_table(index= ['country_code', 'country_name', 
+                                          'hult_region'], columns = 'variable', values = 'value')
+                                          
+#Viewing subset dataframe
+hot_rod_dem
+hot_rod_fin
+hot_rod_emp
+hot_rod_living
+
+# Percent of missing value per variable
+# Dem
+print((hot_rod_dem[:].isnull().sum() / hot_rod_dem[:].count()).round(2))
+
+# Fin
+print((hot_rod_fin[:].isnull().sum() / hot_rod_fin[:].count()).round(2))
+
+#Emp
+print((hot_rod_emp[:].isnull().sum() / hot_rod_emp[:].count()).round(2))
+
+#Living
+print((hot_rod_living[:].isnull().sum() / hot_rod_living[:].count()).round(2))
+
+# inputing the MISSING VALUES from secondary research - Dem
+# Population 0 to 14
+hot_rod_dem.at[21,'pop_0_to_14']                 = ((9000/hot_rod_dem.loc[21,'pop_total'])*100).round(6)
+
+# Population 15 to 64
+hot_rod_dem.at[21,'pop_15_to_64']                = ((41000/hot_rod_dem.loc[21,'pop_total'])*100).round(6)
+
+# Population 65 over
+hot_rod_dem.at[21,'pop_65_over']                 = ((13000/hot_rod_dem.loc[21,'pop_total'])*100).round(6)
+
+# Population Largest City - Bermuda
+hot_rod_dem.at[21,'pop_largest_city']            = ((2584 / (hot_rod_dem.loc[21,'pop_total'] * (hot_rod_dem.loc[21,'pop_urban'])/100))*100).round(6)
+
+# Population Female
+hot_rod_dem.at[21,'pop_female']                  = 33089
+
+
+# Population Male
+hot_rod_dem.at[21,'pop_male']                    = 30690
+
+# Population Rural
+hot_rod_dem.at[21,'pop_rural']                   = 0
+
+# Population Largest City - Belize
+hot_rod_dem.at[19,'pop_largest_city']            = ((64287 / (hot_rod_dem.loc[19,'pop_total'] * (hot_rod_dem.loc[19,'pop_urban'])/100))*100).round(6)
+
+
+# Imputing the missing values - Dem
+#Count of female 15 to 19 for pop between 15 to 19 = 4000
+female_15_19 = 4000*(hot_rod_dem.loc[21,'pop_female']/hot_rod_dem.loc[21,'pop_total'])
+
+#Total births
+births = hot_rod_dem.loc[21,'fertility_rate']*hot_rod_dem.loc[21,'pop_female']
+
+#percent of 15 to 19 as percent of female pop
+fem_15_19_per = (female_15_19*100)/hot_rod_dem.loc[21,'pop_female']
+
+#births for 15 to 19
+births_15_19 = births * (fem_15_19_per/100)
+
+
+# Adolescent Fertility Rate
+hot_rod_dem.at[21,'ad_fertility_rate']           = (births_15_19/1000).round(6)
+
+# inputing the MISSING VALUES from secondary research - Fin
+# Agriculture, Forestry and Fish Value Added (%)
+hot_rod_fin.at[21,'agr_for_fish_valadd']          = 1.0
+hot_rod_fin.at[34,'agr_for_fish_valadd']          = 1.7
+
+# GDP
+hot_rod_fin.at[21,'gdp']                          = 6127000000
+
+# GDP Growth
+hot_rod_fin.at[21,'gdp_growth']                   = -0.1
+
+# Gini Index
+hot_rod_fin.at[19,'gini_index']                   = 53.3
+hot_rod_fin.at[34,'gini_index']                   = 34.000000
+hot_rod_fin.at[80,'gini_index']                   = 48.300000
+hot_rod_fin.at[128,'gini_index']                  = 48.300000
+hot_rod_fin.at[144,'gini_index']                  = 46.200000
+hot_rod_fin.at[205,'gini_index']                  = 41.500000
+
+# Government Expenditure in Education (%)
+hot_rod_fin.at[21,'gov_exp_edu']                  = 7.796440
+hot_rod_fin.at[34,'gov_exp_edu']                  = 12.188170
+hot_rod_fin.at[45,'gov_exp_edu']                  = 23.109530
+hot_rod_fin.at[128,'gov_exp_edu']                 = 19.007520
+hot_rod_fin.at[144,'gov_exp_edu']                 = 22.753670
+hot_rod_fin.at[151,'gov_exp_edu']                 = 13.019720
+hot_rod_fin.at[205,'gov_exp_edu']                 = 13.051280
+
+# Income shared by 4th 20% (%)
+hot_rod_fin.at[19,'income_4th']                   = 19.4
+hot_rod_fin.at[34,'income_4th']                   = 23.300000
+hot_rod_fin.at[80,'income_4th']                   = 20.100000
+hot_rod_fin.at[128,'income_4th']                  = 19.300000
+hot_rod_fin.at[144,'income_4th']                  = 20.000000
+hot_rod_fin.at[205,'income_4th']                  = 22.600000
+
+# Income shared by highest 20% (%)
+hot_rod_fin.at[19,'income_1st']                   = 57.7
+hot_rod_fin.at[34,'income_1st']                   = 40.700000
+hot_rod_fin.at[80,'income_1st']                   = 53.600000
+hot_rod_fin.at[128,'income_1st']                  = 54.200000
+hot_rod_fin.at[144,'income_1st']                  = 52.100000
+hot_rod_fin.at[205,'income_1st']                  = 46.900000
+
+# Income shared by lowest 20% (%)
+hot_rod_fin.at[19,'income_5th']                   = 3.2
+hot_rod_fin.at[34,'income_5th']                   = 6.600000
+hot_rod_fin.at[80,'income_5th']                   = 4.500000
+hot_rod_fin.at[128,'income_5th']                  = 4.900000
+hot_rod_fin.at[144,'income_5th']                  = 5.100000
+hot_rod_fin.at[205,'income_5th']                  = 5.000000
+
+# Income shared by 2nd 20% (%)
+hot_rod_fin.at[19,'income_2nd']                   = 7.7
+hot_rod_fin.at[34,'income_2nd']                   = 12.300000
+hot_rod_fin.at[80,'income_2nd']                   = 8.600000
+hot_rod_fin.at[128,'income_2nd']                  = 8.800000
+hot_rod_fin.at[144,'income_2nd']                  = 9.200000
+hot_rod_fin.at[205,'income_2nd']                  = 10.200000
+
+# Income shared by 3rd 20% (%)
+hot_rod_fin.at[19,'income_3rd']                   = 12
+hot_rod_fin.at[34,'income_3rd']                   = 17.000000
+hot_rod_fin.at[80,'income_3rd']                   = 13.200000
+hot_rod_fin.at[128,'income_3rd']                  = 12.800000
+hot_rod_fin.at[144,'income_3rd']                  = 13.700000
+hot_rod_fin.at[205,'income_3rd']                  = 15.300000
+
+# Industry Construction Value Added (%)
+hot_rod_fin.at[21,'industry_const_valadd']        = 5.900000
+hot_rod_fin.at[34,'industry_const_valadd']        = 1.208614
+
+# Military Expenditure (%)
+hot_rod_fin.at[21,'mili_exp']                     = 0.0
+hot_rod_fin.at[45,'mili_exp']                     = 0.0
+hot_rod_fin.at[151,'mili_exp']                    = 0.0
+
+# Tax Revenue (% of GDP)
+hot_rod_fin.at[21,'tax_rev']                      = 16.300000
+hot_rod_fin.at[80,'tax_rev']                      = 10.800000
+hot_rod_fin.at[85,'tax_rev']                      = 20.300000
+hot_rod_fin.at[151,'tax_rev']                     = 20.100000
+
+# Merchandise Trade (% of GDP)
+hot_rod_fin.at[21,'merch_trade']                  = 18.020238
+
+# Service industry value added (%)
+hot_rod_fin.at[21,'serv_valadd']                  = 67.800000
+hot_rod_fin.at[34,'serv_valadd']                  = 66.750000
+
+# Imputing the missing values - Fin
+#Gini Index
+gini_index_mean = hot_rod_fin['gini_index'].mean()
+hot_rod_fin['gini_index'] = hot_rod_fin['gini_index'].fillna(gini_index_mean)
+
+# income_4th
+income_4th_median = hot_rod_fin['income_4th'].median()
+hot_rod_fin['income_4th'] = hot_rod_fin['income_4th'].fillna(income_4th_median)
+
+# income_1st
+income_1st_median = hot_rod_fin['income_1st'].median()
+hot_rod_fin['income_1st'] = hot_rod_fin['income_1st'].fillna(income_1st_median)
+
+#income_5th
+income_5th_median = hot_rod_fin['income_5th'].median()
+hot_rod_fin['income_5th'] = hot_rod_fin['income_5th'].fillna(income_5th_median)
+
+#income_2nd
+income_2nd_median = hot_rod_fin['income_2nd'].median()
+hot_rod_fin['income_2nd'] = hot_rod_fin['income_2nd'].fillna(income_2nd_median)
+
+#income_3rd
+income_3rd_median = hot_rod_fin['income_3rd'].median()
+hot_rod_fin['income_3rd'] = hot_rod_fin['income_3rd'].fillna(income_3rd_median)
+
+#inputting missing values - emp
+#armed forces personnel
+hot_rod_emp.at[21, 'armed_forces'] = 0.78
+
+#employment in agriculture
+hot_rod_emp.at[21, 'emp_agr'] = 1.7
+
+#employment in industry
+hot_rod_emp.at[21, 'emp_ind'] = 8.6
+
+#employment in services
+hot_rod_emp.at[34, 'emp_serv'] = 89.7
+
+# imputing the NaN value in emp
+# emp_serv
+emp_serv_median = hot_rod_emp['emp_serv'].median()
+hot_rod_emp['emp_serv'] = hot_rod_emp['emp_serv'].fillna(emp_serv_median)
+
+#missing vals - living
+#Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population)
+hot_rod_living.at['BLZ', 'poverty_ratio_at_1.90'] = 13.9
+hot_rod_living.at['BMU', 'poverty_ratio_at_1.90'] = 5.3
+hot_rod_living.at['CAN', 'poverty_ratio_at_1.90'] = 0.5
+hot_rod_living.at['GTM', 'poverty_ratio_at_1.90'] = 9.5
+hot_rod_living.at['MEX', 'poverty_ratio_at_1.90'] = 2.2
+hot_rod_living.at['NIC', 'poverty_ratio_at_1.90'] = 3.2
+hot_rod_living.at['USA', 'poverty_ratio_at_1.90'] = 1.2
+
+#Poverty headcount ratio at $3.20 a day (2011 PPP) (% of population)
+hot_rod_living.at['BLZ', 'poverty_ratio_at_3.20'] = 28.4
+hot_rod_living.at['BMU', 'poverty_ratio_at_3.20'] = 13.1
+hot_rod_living.at['CAN', 'poverty_ratio_at_3.20'] = 0.7
+hot_rod_living.at['GTM', 'poverty_ratio_at_3.20'] = 25.3
+hot_rod_living.at['MEX', 'poverty_ratio_at_3.20'] = 11.2
+hot_rod_living.at['NIC', 'poverty_ratio_at_3.20'] = 13.8
+hot_rod_living.at['USA', 'poverty_ratio_at_3.20'] = 2.0
+
+#Poverty headcount ratio at national poverty lines (% of population)
+hot_rod_living.at['BLZ', 'poverty_ratio_at_national_lines'] = 43.0
+hot_rod_living.at['BMU', 'poverty_ratio_at_national_lines'] = 23.0
+hot_rod_living.at['CAN', 'poverty_ratio_at_national_lines'] = 9.5
+hot_rod_living.at['GTM', 'poverty_ratio_at_national_lines'] = 59.3
+hot_rod_living.at['MEX', 'poverty_ratio_at_national_lines'] = 41.9
+hot_rod_living.at['NIC', 'poverty_ratio_at_national_lines'] = 24.9
+hot_rod_living.at['PAN', 'poverty_ratio_at_national_lines'] = 22.1
+hot_rod_living.at['USA', 'poverty_ratio_at_national_lines'] = 12.3
+
+#Prevalence of underweight, weight for age (% of children under 5)
+hot_rod_living.at['BLZ', 'underweight_prevalence_under5_pop'] = 4.6
+hot_rod_living.at['BMU', 'underweight_prevalence_under5_pop'] = 4.3
+hot_rod_living.at['CAN', 'underweight_prevalence_under5_pop'] = 1.8
+hot_rod_living.at['CRI', 'underweight_prevalence_under5_pop'] = 1.1
+hot_rod_living.at['SLV', 'underweight_prevalence_under5_pop'] = 5.0
+hot_rod_living.at['GTM', 'underweight_prevalence_under5_pop'] = 12.4
+hot_rod_living.at['HND', 'underweight_prevalence_under5_pop'] = 7.1
+hot_rod_living.at['MEX', 'underweight_prevalence_under5_pop'] = 3.9
+hot_rod_living.at['NIC', 'underweight_prevalence_under5_pop'] = 4.6
+hot_rod_living.at['PAN', 'underweight_prevalence_under5_pop'] = 3.9
+hot_rod_living.at['USA', 'underweight_prevalence_under5_pop'] = 0.5
+
+#Prevalence of HIV, total (% of population ages 15-49)
+hot_rod_living.at['BMU', 'hiv_prevalence_1549'] = 0.5
+hot_rod_living.at['CAN', 'hiv_prevalence_1549'] = 0.17
+hot_rod_living.at['USA', 'hiv_prevalence_1549'] = 0.3
+
+#Prevalence of undernourishment (% of population)
+hot_rod_living.at['BMU', 'undernourishment_prevalence_pop'] = 12.8
+
+#imputing "Nan" with 0
+hot_rod_living.fillna(0)
+
+# Checking to see if there are any null values present
+# Dem
+print(hot_rod_dem.isnull().any())
+
+# Fin
+print(hot_rod_fin.isnull().any())
+
+# Emp
+print(hot_rod_emp.isnull().any())
+
+# Living
+print(hot_rod_living.isnull().any())
+
+# Setting DataTypes for columns
+# Dem
+# creating a type dictionary for the datatypes
+types_dem = {'country_code'         : str,
+         'country_name'         : str,
+         'ad_fertility_rate'    : int,
+         'birth_rate'           : int,
+         'death_rate'           : int,
+         'fertility_rate'       : int,
+         'life_exp'             : int,
+         'pop_0_to_14'          : int,
+         'pop_15_to_64'         : int,
+         'pop_65_over'          : int,
+         'pop_density'          : int,
+         'pop_growth'           : int,
+         'pop_largest_city'     : int,
+         'pop_slums'            : int,
+         'pop_female'           : int,
+         'pop_male'             : int,
+         'pop_total'            : int,
+         'pop_rural'            : int,
+         'surface_area'         : int,
+         'pop_urban'            : int,
+         'pop_urban_growth'     : int}
+
+# Changing the datatypes in dataframe as per type dictionary
+hot_rod_dem = hot_rod_dem.astype(types_dem)
+
+# Fin
+# creating a type dictionary for the datatypes
+types_fin = {'country_name'            : str,
+         'agr_for_fish_valadd'     : int,
+         'gdp'                     : int,
+         'gdp_growth'              : int,
+         'gini_index'              : int,
+         'gov_exp_edu'             : int,
+         'income_4th'              : int,
+         'income_1st'              : int,
+         'income_5th'              : int,
+         'income_2nd'              : int,
+         'income_3rd'              : int,
+         'industry_const_valadd'   : int,
+         'merch_trade'             : int,
+         'mili_exp'                : int,
+         'serv_valadd'             : int,
+         'tax_rev'                 : int}
+
+# Changing the datatypes in dataframe as per type dictionary
+hot_rod_fin = hot_rod_fin.astype(types_fin)
+
+# Emp
+# creating a type dictionary for the datatypes
+type_emp = {'country_name' : str,
+        'agr_for_fish_valadd' : int,
+        'armed_forces' : int,
+        'emp_agr' : int,
+        'emp_ind' : int,
+        'emp_serv' : int}
+
+
+# Changing the datatypes in dataframe as per type dictionary
+hot_rod_emp = hot_rod_emp.astype(type_emp)
+
+# Living
+# Saving Hot_Rod_Living to excel and reading it as living (df)
+hot_rod_living.to_excel('Living Standards.xlsx')
+file = 'Living Standards.xlsx'
+
+living = pd.read_excel(file)
+
+# creating a type dictionary for the datatypes
+typesLiv = {'country_code'                    : str,
+         'country_name'                       : str, 
+         'elec_access_pop'                    : int,
+         'elec_access_rural'                  : int,
+         'elec_access_urban'                  : int,
+         'cellular_subscript_per100'          : int,
+         'ppl_pushed_below_3.10'              : int,
+         'poverty_ratio_at_1.90'              : int,
+         'poverty_ratio_at_3.20'              : int,
+         'poverty_ratio_at_national_lines'    : int,
+         'hiv_prevalence_1549'                : int,
+         'undernourishment_prevalence_pop'    : int,
+         'underweight_prevalence_under5_pop'  : int,
+         'pop_growth'                         : int}
+
+# Changing the datatypes in dataframe as per type dictionary
+living = living.astype(typesLiv)
+
+# checking to see datatypes have been updated
+# Dem
+hot_rod_dem.info(verbose = True)
+
+# Fin
+hot_rod_fin.info(verbose = True)
+
+# Emp
+hot_rod_emp.info(verbose = True)
+
+# Living
+living.info(verbose = True)
+
+# Analysis, Plots, Insights
+# Emp
+hot_rod_emp.boxplot(column = 'agr_for_fish_valadd', vert = False)
+plt.show()
+
+# Analysis, Plots, Insights
+# Living
+#observing outliers
+#boxplot for Access to electricity (% of population)
+living.boxplot(column = ['elec_access_pop'],
+              vert = False,
+              manage_ticks = True,
+              patch_artist = False,
+              meanline = True,
+              showmeans = True)
+plt.title('Boxplot for Access to electricity (% of population)')
+plt.show()
+
+#boxplot of Access to electricity, rural (% of rural population) and Access to electricity, urban (% of urban population)
+living.boxplot(column = ['elec_access_urban', 'elec_access_rural'],
+              vert = False,
+              manage_ticks = True,
+              patch_artist = False,
+              meanline = True,
+              showmeans = True)
+plt.title('Boxplot of Access to electricity, rural (% of rural population) and urban (% of urban population)')
+plt.show()
+
+#boxplot for Mobile cellular subscriptions (per 100 people)
+living.boxplot(column = ['cellular_subscript_per100'],
+              vert = False,
+              manage_ticks = True,
+              patch_artist = False,
+              meanline = True,
+              showmeans = True)
+plt.title('Boxplot for Mobile cellular subscriptions (per 100 people)')
+plt.show()
+
+#boxplot for Number of people pushed below the $3.10 ($ 2011 PPP) poverty line by out-of-pocket health care expenditure
+living.boxplot(column = ['ppl_pushed_below_3.10'],
+              vert = False,
+              manage_ticks = True,
+              patch_artist = False,
+              meanline = True,
+              showmeans = True)
+plt.title("""Boxplot for Number of people pushed below the $3.10 ($ 2011 PPP) poverty line by
+          out-of-pocket health care expenditure""")
+plt.show()
+
+#boxplot for Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population), 
+#Poverty headcount ratio at $3.20 a day (2011 PPP) (% of population) and
+#Poverty headcount ratio at national poverty lines (% of population)
+living.boxplot(column = ['poverty_ratio_at_1.90', 
+                         'poverty_ratio_at_3.20', 'poverty_ratio_at_national_lines'],
+              vert = False,
+              manage_ticks = True,
+              patch_artist = False,
+              meanline = True,
+              showmeans = True)
+plt.title("""Boxplot for Poverty headcount ratio at $1.90 a day (2011 PPP) (% of population), 
+Poverty headcount ratio at $3.20 a day (2011 PPP) (% of population) and
+Poverty headcount ratio at national poverty lines (% of population)""")
+plt.show()
+
+#boxplot for Prevalence of HIV, total (% of population ages 15-49)
+living.boxplot(column = ['hiv_prevalence_1549'],
+              vert = False,
+              manage_ticks = True,
+              patch_artist = False,
+              meanline = True,
+              showmeans = True)
+plt.title('Boxplot for Prevalence of HIV, total (% of population ages 15-49)')
+plt.show()
+
+#boxplot for Prevalence of undernourishment (% of population) and Prevalence of underweight, weight for age (% of children under 5)
+living.boxplot(column = ['undernourishment_prevalence_pop', 'underweight_prevalence_under5_pop'],
+              vert = False,
+              manage_ticks = True,
+              patch_artist = False,
+              meanline = True,
+              showmeans = True)
+plt.title("""Boxplot for Prevalence of undernourishment (% of population)
+and Prevalence of underweight, weight for age (% of children under 5)""")
+plt.show()
+
+#boxplot for Population growth (annual %)
+living.boxplot(column = ['pop_growth'],
+              vert = False,
+              manage_ticks = True,
+              patch_artist = False,
+              meanline = True,
+              showmeans = True)
+plt.title('Boxplot for Population growth (annual %)')
+plt.show()
+
+# Correlation Matrix
+living_corr = living.corr().round(2)
+print(living_corr)
+
+# Analysis, Plots, Insights
+# Dem
+# Boxplot for some variables in dataframe
+hot_rod_dem.boxplot(["pop_female","pop_male"],
+                    vert = False,
+                    manage_ticks = True,
+                    patch_artist = False,
+                    meanline = True,
+                    showmeans = True)
+plt.title('Boxplot for Population')
+plt.show()
+
+hot_rod_dem.boxplot(["birth_rate","death_rate","life_exp"],
+                    vert = False,
+                    manage_ticks = True,
+                    patch_artist = False,
+                    meanline = True,
+                    showmeans = True)
+plt.title('Boxplot for Birth Rate, Death Rate & Life Exp.')
+plt.show()
+
+# statistical analysis of the dataframe
+hot_rod_dem.describe().round(3)
+
+# Subset of Hot_Rod_Dem
+hot_rod_dem_sub = hot_rod_dem[["death_rate","life_exp","pop_density","pop_growth","pop_female","pop_total","birth_rate","pop_slums"]]
+# Corr Matrix for hot_rod_dem_sub
+df_corr = hot_rod_dem_sub.corr().round(3)
+# focusing on correlations with the target variable
+df_corr.loc['pop_slums'].sort_values(ascending = False)
+
+# Heatmap using seaborn for hot_rod_dem_sub table
+# Using palplot to view a color scheme
+sns.palplot(sns.color_palette('plasma', 12))
+sns.set()
+# specifying plot size
+fig, ax = plt.subplots(figsize=(7,7))
+# creating a heatmap
+sns.heatmap(df_corr,
+            cmap = 'YlGnBu',
+           square = True,
+           vmin=-1, vmax=1,
+           fmt = 'd',
+           ax = ax)
+# saving the figure and displaying the plot
+plt.savefig('Diamond Correlation Heatmap 2.png')
+plt.show()
+
+# finding the correlation as proof of imputation for ad_fertility_rate
+corr1= np.corrcoef(hot_rod_dem['pop_female'],hot_rod_dem['ad_fertility_rate'])
+corr2= np.corrcoef(hot_rod_dem['fertility_rate'],hot_rod_dem['ad_fertility_rate'])
+
+# heatmap for correlation ----- Blue map shows correlation
+sns.heatmap(corr1, cmap='Reds')
+plt.show()
+sns.heatmap(corr2, cmap='Blues')
+plt.show()
